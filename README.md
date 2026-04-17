@@ -1,2 +1,6 @@
-# Examen-final-PROG1
-Création d'un générateur de site web avec nodejs et l'API fs
+Liste des membres du groupe:
+RAKOTOMALALA Tsiorinirina Tolotriniavo | STD25010 | GROUPE N1
+ANDRIAMANALINTSOA Ny Mamy Antso Nekena | STD25019 | GROUPE N1
+NY AINARIMANANA Maïwen  | STD25033 | GROUPE N1
+AZARIAH RAKOTOVAZAHA Martinault | STD25025 | GROUPE N1
+RASOAVOLOLONA Hasinirina | STD25094 | GROUPE N1
