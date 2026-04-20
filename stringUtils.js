@@ -22,4 +22,4 @@ export const countWords = (text) => {
 export const escapeHTML = (text) => {
     const map = { '&': '&amp;', '<': '&lt', '>': '&gt;', '"': '&quot;', "'": '&#39;'};
     return text.replace(/[&<>"']/g, m => map[m]);
-}
+}; 
