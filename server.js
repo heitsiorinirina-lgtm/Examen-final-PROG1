@@ -1,7 +1,7 @@
 import http from "http";
 import path from "path";
 import fs from "fs";
-const startServer = (port = 3000) => {
+export const startServer = (port = 3000) => {
   const DIST_DIR = "./dist";
   // Création du serveur
   const SERVER = http.createServer((request, response) => {
