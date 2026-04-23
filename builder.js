@@ -40,25 +40,47 @@ function generateStatsPage(data) {
    * stockez dans une variable qui s’appelle nbrArticles le
    * nombre d’articles dans le blog
    */
-  const body = `
-<h1>Analyse du Blog</h1>
-<div class="stats-box">
-<div
-class="stat-item"><strong>${nbrArticles}</strong><br>Articles</div
->
-<div
-class="stat-item"><strong>${totalWords}</strong><br>Mots au
-total</div>
-<div
-class="stat-item"><strong>${avgWords}</strong><br>Mots /
-article</div>
-<div
-class="stat-item"><strong>${topAuthor}</strong><br>Auteur
-principal</div>
-</div>
-`;
+
+    const nbrArticles = data.length;
+
+    const totalWords = data.reduce((sum, article) => {
+      return sum + countWords(article.content);
+    }, 0);
+
+    const avgWords = nbrArticles > 0
+      ? Math.round(totalWords / nbrArticles)
+      : 0;
+
+    const authorCount = data.reduce((acc, article) => {
+      const author = article.author;
+      acc[author] = (acc[author] || 0) + 1;
+      return acc;
+    }, {});
+
+    let topAuthor = "";
+    let max = 0;
+
+    for (const author in authorCount) {
+      if (authorCount[author] > max) {
+        max = authorCount[author];
+        topAuthor = author;
+      }
+    }
+
+    const body = `
+    <h1>Analyse du Blog</h1>
+    <div class="stats-box">
+    <div class="stat-item"><strong>${nbrArticles}</strong><br>Articles</div>
+    <div class="stat-item"><strong>${totalWords}</strong><br>Mots au total</div>
+    <div class="stat-item"><strong>${avgWords}</strong><br>Mots / article</div>
+    <div class="stat-item"><strong>${topAuthor}</strong><br>Auteur principal</div>
+    </div>
+  `;
+
   return layout("Statistiques", body);
 }
+
+
 /**
  * Génère la page ARCHIVES
  */
@@ -72,6 +94,18 @@ mener à l’article et le nombre *total de mots dans l’article en
 question puis stocker le
 * résultat dans une variable qui s’appelle list
 */
+  const list = data.map(article => {
+    return `
+<li>
+  <strong>${article.date}</strong> :
+  <a href="${slugify(article.title)}.html">
+    ${escapeHTML(article.title)}
+  </a>
+  (${countWords(article.content)} mots)
+</li>
+`;
+  }).join('');
+
   return layout(
     "Archives",
     `<h1>Tous les
