@@ -76,6 +76,8 @@ function generateStatsPage(data) {
     <div class="stat-item"><strong>${topAuthor}</strong><br>Auteur principal</div>
     </div>
   `;
+
+  return layout("Statistiques", body);
 }
 
 
