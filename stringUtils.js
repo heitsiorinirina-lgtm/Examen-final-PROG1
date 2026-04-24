@@ -116,3 +116,28 @@ export const escapeHTML = (text) => {
   };
   return text.replace(/[&<>"']/g, (m) => map[m]);
 };
+
+/* fonction encodeImageToBase64 
+Analyse du problème :
+    Entrée : chemin d'une image
+    Sortie : une chaîne de caractères qui représente l'image encodée en base64
+
+  Conception :
+    on va lire le fichier de l'image et ensuite on va convertir son contenu en base64 pour pouvoir l'utiliser dans une page web
+
+  Pseudo-code :
+    DEBUT :
+    Fonction encodeImageToBase64(image)
+        lire le fichier de l'image
+        convertir le contenu du fichier en base64
+        retourner la chaîne de caractères encodée
+    Fin Fonction
+    FIN
+*/
+
+
+function encodeImageToBase64(image) {
+  fs.readFile(image, (data) => {
+    return data.toString("base64");
+  });
+}
