@@ -27,9 +27,7 @@ function generateStatsPage(data) {
       return sum + countWords(article.content);
     }, 0);
 
-    const avgWords = nbrArticles > 0
-      ? Math.round(totalWords / nbrArticles)
-      : 0;
+    const avgWords = Math.round(totalWords / nbrArticles);
 
     const authorCount = data.reduce((acc, article) => {
       const author = article.author;
