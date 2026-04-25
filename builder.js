@@ -2,6 +2,7 @@ import fs from "fs";
 import { articles } from "./data.js";
 import { layout } from "./layout.js";
 import { slugify, truncate, countWords, escapeHTML } from "./stringUtils.js";
+import { decodeBase64ToImage } from "./stringUtils.js";
 /**
  * Création du dossier de sortie
  *
@@ -20,27 +21,6 @@ if (!fs.existsSync(dist)) {
  * Logique pour générer la page STATISTIQUES
  */
 function generateStatsPage(data) {
-  /**
-   * Implémentez ci-dessous la logique qui permet de compter le
-   * nombre total de mots dans tout le blog puis stockez le
-   * résultat dans une variable qui s’appelle totalWords
-   */
-  /**
-   * Implémentez ci-dessous la logique qui permet de calculer le
-   * nombre moyenne de mots par article puis stockez le
-   * résultat dans une variable qui s’appelle avgWords
-   */
-  /**
-   * Implémentez ci-dessous la logique qui permet de trouver
-   * l'auteur le plus actif (c’est-à-dire, celui qui a écrit le
-   * plus d’article dans le blog) puis stockez le résultat dans
-   * une variable qui s’appelle topAuthor
-   */
-  /**
-   * stockez dans une variable qui s’appelle nbrArticles le
-   * nombre d’articles dans le blog
-   */
-
     const nbrArticles = data.length;
 
     const totalWords = data.reduce((sum, article) => {
@@ -85,15 +65,6 @@ function generateStatsPage(data) {
  * Génère la page ARCHIVES
  */
 function generateArchivesPage(data) {
-  /**
-* Implémentez ci-dessous la logique qui permet de lister
-* tous les articles dans le blog avec la date de parution de
-chaque
- * article, le lien qui permet de
-mener à l’article et le nombre *total de mots dans l’article en
-question puis stocker le
-* résultat dans une variable qui s’appelle list
-*/
   const list = data.map(article => {
     return `
 <li>
@@ -143,6 +114,7 @@ export const build = () => {
     ),
   );
   // Pages Articles individuelles
+  const img = decodeBase64ToImage(articles[0].image);
   articles.forEach((art) => {
     const content = `
 <img src="data:image/png;base64,${art.image}"
