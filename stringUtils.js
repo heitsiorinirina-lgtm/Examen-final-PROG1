@@ -20,6 +20,7 @@
    FIN
 
 */
+import fs from "fs";
 export const slugify = (text) => {
   return text
     .normalize("NFD")
@@ -126,7 +127,7 @@ Analyse du problème :
     on va lire le fichier de l'image et ensuite on va convertir son contenu en base64 pour pouvoir l'utiliser dans une page web
 
   Pseudo-code :
-    DEBUT :
+    DEBUT
     Fonction encodeImageToBase64(image)
         lire le fichier de l'image
         convertir le contenu du fichier en base64
@@ -136,8 +137,30 @@ Analyse du problème :
 */
 
 
-function encodeImageToBase64(image) {
-  fs.readFile(image, (data) => {
-    return data.toString("base64");
-  });
-}
+export const encodeImageToBase64 = (image) => {
+  return fs.readFileSync(image).toString("base64");
+};
+
+/*Fonction decodeBase64ToImage
+Analyse du problème :
+    Entrée : une chaîne de caractères qui représente une image encodée en base64
+    Sortie : un fichier image décodé à partir de la chaîne de caractères
+
+  Conception :
+    on va prendre la chaîne de caractères encodée en base64 et on va la convertir en binaire pour pouvoir créer un fichier image à partir de ce contenu.
+    Pour gérer la longue chaîne de binaire, on va utiliser un buffer qui est une structure de données efficace pour manipuler des données binaires en Node.js.
+
+  Pseudo-code :
+    DEBUT
+    Fonction decodeBase64ToImage(text)
+        convertir la chaîne de caractères encodée en base64 en binaire
+        Stocker le résultat dans un buffer
+        créer un fichier image à partir du contenu binaire
+    Fin Fonction
+    FIN
+*/
+
+export const decodeBase64ToImage = (text) => {
+  return fs.writeFileSync("img.png", Buffer.from(text, "base64"));
+};
+decodeBase64ToImage("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/CfHgAGgwJ/lYpQ1QAAAABJRU5ErkJggg==");
